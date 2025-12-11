@@ -1,7 +1,7 @@
 // Import express, ejs, mysql, session, path, express-sanitizer, and dotenv
 var express = require('express');
 var ejs = require('ejs');
-var mysql = require('mysql');
+var mysql = require('mysql2');
 var session = require('express-session');
 const path = require('path');
 const expressSanitiser = require('express-sanitizer');
@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Define app-specific data
-app.locals.appData = {shopName: "Big Boulder"};
+app.locals.appName = "Big Boulder";
 
 // Load routes
 const mainRoutes = require('./routes/main');

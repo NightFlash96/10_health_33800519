@@ -1,0 +1,137 @@
+/* Shared site stylesheet */
+
+:root{
+  --bg: #f7fbfc;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --accent: #2b7cff;
+}
+
+html,body{
+  min-height:100%;
+  margin:0;
+  padding:0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Keep normal document flow (don't center with flex). Give light page padding */
+body{
+  padding:18px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* */
+.container{
+  width:100%;
+  max-width:900px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 6px 18px rgba(30,40,50,0.08);
+  padding:28px 32px;
+}
+
+h1,h2,h3{
+  color:var(--text);
+  margin-top:0;
+}
+
+ul{ padding-left:1.2em; }
+
+a{ color:var(--accent); text-decoration:none }
+a:hover{ text-decoration:underline }
+
+form input[type="text"], form input[type="email"], form input[type="password"]{
+  padding:8px 10px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  width:100%;
+  max-width:360px;
+  box-sizing:border-box;
+}
+
+input[type="submit"]{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* Small helper */
+.center{ text-align:center }
+
+/* Page content wrapper for proper spacing with header */
+.page-content{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  min-height:calc(100vh - 60px);
+}
+
+/* Login page centering */
+.login-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  flex:1;
+  text-align:center;
+  padding:20px 0;
+}
+
+.login-container form{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.login-container form input[type="submit"]{
+  margin-top:8px;
+}
+
+.login-container p{
+  margin:8px 0;
+}
+
+/* Give pages some breathing room when not wrapped in .container */
+.main-body-padding{ padding:12px }
+
+/* Header styles - lightweight, keeps layout flow */
+.site-header{
+  background: #8dd0fd;
+  border-bottom: 5px solid rgb(55, 159, 185);
+  margin-bottom:14px;
+}
+.site-header .header-inner{
+  max-width:900px;
+  margin:0 auto;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.site-header .brand a{
+  color:#ffffff;
+  font-weight:700;
+  text-decoration:none;
+  font-size:1.05rem;
+}
+.site-header .main-nav a{
+  color:#ffffff;
+  margin-left:14px;
+  text-decoration:none;
+  font-size:0.95rem;
+}
+.site-header .main-nav a:hover{ color:var(--accent); text-decoration:underline }
+
+/* Make sure header doesn't force page centering or big layout changes */
+@media (max-width:600px){
+  .site-header .header-inner{ flex-direction:column; align-items:flex-start }
+  .site-header .main-nav{ margin-top:8px }
+}

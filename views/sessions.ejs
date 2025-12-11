@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My Climbing Session</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <h1>My Sessions</h1>
+
+    <% if (Array.isArray(climbs) && climbs.length) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% climbs.forEach(function(book) { %>
+                <tr>
+                    <td><%= book.name %></td>
+                    <td>$<%= (typeof book.price === 'number' ? book.price : Number(book.price)).toFixed(2) %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No books found.</p>
+    <% } %>
+
+    <p><a href="/">Back to home</a></p>
+</body>
+</html>
