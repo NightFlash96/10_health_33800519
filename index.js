@@ -15,11 +15,18 @@ const port = process.env.PORT || 8000;
 app.use(session({
     secret: "somerandomstuff",
     resave: false,
-    saveUninitialised: false,
+    // keep new sessions from being stored when they are never modified
+    saveUninitialized: false,
     cookie: {
         expires: 6000000
     }
 }))
+
+// Expose session data to all views (e.g. header.ejs)
+app.use((req, res, next) => {
+    res.locals.userID = req.session.userID;
+    next();
+});
 
 // Create an input sanitiser
 app.use(expressSanitiser());

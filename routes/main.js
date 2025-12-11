@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
+const { redirectLogin } = require('../middleware/redirectlogin.js');
 
 // Home route
 router.get('/', (req, res, next) => {
@@ -45,7 +46,6 @@ router.post('/loggedin', function(req, res, next) {
                     next(err);
                 } else if (result == true) { // it match, log successful attempt
                     req.session.userID = username; // create session variable
-                    // res.send("You are now logged in.")
                     res.redirect('/');
                     db.query("INSERT INTO audit (username, datetime, success, eventType) VALUES (?, NOW(), 1, 'login')", [username], (err, result) => {
                         if (err) {
@@ -53,6 +53,7 @@ router.post('/loggedin', function(req, res, next) {
                         }
                         else {
                             console.log('Successful login attempt logged.')
+                            console.log('User logged in:', req.session.userID);
                         }
                     });
                 } else { // if the password does not match, log failed attempt
@@ -126,6 +127,17 @@ router.get('/audit', function(req, res, next) {
         }
     });
 });
+
+router.get('/logout', redirectLogin, (req,res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.redirect('./')
+        }
+        console.log('User logged out.');
+        res.redirect('./login');
+    
+    })
+})
 
 
 
