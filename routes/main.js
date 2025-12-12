@@ -103,7 +103,14 @@ router.post('/registered',
                 db.query(sqlquery, [username, email, hashedPassword], function (err, results) {
                     if (err) {
                         console.log('Database error:', err);
-                        next(err);
+                        // Check for duplicate username or email error
+                        if (err.code === 'ER_DUP_ENTRY') {
+                            const dupError = err.message.includes('username') ? 
+                                'Username already exists' : 'Email already exists';
+                            res.render('register.ejs', { errors: [{ msg: dupError }] });
+                        } else {
+                            next(err);
+                        }
                     } else {
                         console.log('User registered.');
                         res.render('registered.ejs');

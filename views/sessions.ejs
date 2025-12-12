@@ -30,22 +30,22 @@
         %>
         
         <% sortedDates.forEach(function(date) { %>
-            <div class="container" style="margin-bottom: 20px;">
+            <div class="container session-container">
                 <h2>Session on <%= new Date(date).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></h2>
-                <table style="width: 100%;">
+                <table class="session-table">
                     <thead>
                         <tr>
-                            <th style="text-align: center;">Name</th>
-                            <th style="text-align: center;">Difficulty</th>
-                            <th style="text-align: center;">Time</th>
+                            <th>Name</th>
+                            <th>Difficulty</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% climbsByDate[date].forEach(function(climb) { %>
                             <tr>
-                                <td style="text-align: center;"><%= climb.climb_name %></td>
-                                <td style="text-align: center;"><%= climb.difficulty %></td>
-                                <td style="text-align: center;"><%= new Date(climb.date_climbed).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) %></td>
+                                <td><%= climb.climb_name %></td>
+                                <td><%= climb.difficulty %></td>
+                                <td><%= new Date(climb.date_climbed).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) %></td>
                             </tr>
                         <% }); %>
                     </tbody>
