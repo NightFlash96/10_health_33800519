@@ -2,32 +2,58 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>My Climbing Session</title>
-    <link rel="stylesheet" href="/main.css">
+    <title>My Climbing Sessions</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="body">
     <%- include('partials/header') %>
     <h1>My Sessions</h1>
 
     <% if (Array.isArray(climbs) && climbs.length) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-            <% climbs.forEach(function(book) { %>
-                <tr>
-                    <td><%= book.name %></td>
-                    <td>$<%= (typeof book.price === 'number' ? book.price : Number(book.price)).toFixed(2) %></td>
-                </tr>
-            <% }); %>
-            </tbody>
-        </table>
+        <%
+        // Group climbs by date (normalize to date only, ignoring time)
+        const climbsByDate = {};
+        climbs.forEach(function(climb) {
+            const date = new Date(climb.date_climbed);
+            // Create date key as YYYY-MM-DD to group by day only
+            const dateKey = date.getFullYear() + '-' + 
+                           String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                           String(date.getDate()).padStart(2, '0');
+            if (!climbsByDate[dateKey]) {
+                climbsByDate[dateKey] = [];
+            }
+            climbsByDate[dateKey].push(climb);
+        });
+        
+        // Sort dates in descending order (most recent first)
+        const sortedDates = Object.keys(climbsByDate).sort((a, b) => new Date(b) - new Date(a));
+        %>
+        
+        <% sortedDates.forEach(function(date) { %>
+            <div class="container" style="margin-bottom: 20px;">
+                <h2>Session on <%= new Date(date).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></h2>
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Difficulty</th>
+                            <th style="text-align: center;">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% climbsByDate[date].forEach(function(climb) { %>
+                            <tr>
+                                <td style="text-align: center;"><%= climb.climb_name %></td>
+                                <td style="text-align: center;"><%= climb.difficulty %></td>
+                                <td style="text-align: center;"><%= new Date(climb.date_climbed).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% }); %>
     <% } else { %>
-        <p>No books found.</p>
+        <p>No climbing sessions found.</p>
     <% } %>
 
     <p><a href="/">Back to home</a></p>
