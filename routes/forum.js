@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 
 // Create post form
 router.get('/createpost', redirectLogin, (req, res, next) => {
-    res.render("createpost.ejs");
+    res.render("createpost.ejs", { basePath });
 });
 
 // Create post handler
@@ -52,7 +52,7 @@ router.get('/replypost/:id', redirectLogin, (req, res, next) => {
         } else if (result.length === 0) {
             res.send('Post not found.');
         } else {
-            res.render("replypost.ejs", { parentPost: result[0] });
+            res.render("replypost.ejs", { parentPost: result[0], basePath });
         }
     });
 });

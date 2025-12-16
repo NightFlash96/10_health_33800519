@@ -23,7 +23,7 @@
                 </div>
             <% } %>
 
-            <form class="site-form" action="/forum/replyposted/<%= parentPost.id %>" method="POST">
+            <form class="site-form" action="<%= basePath %>forum/replyposted/<%= parentPost.id %>" method="POST">
                 <input type="hidden" name="parentpost" value="<%= parentPost.id %>">
                 <div class="site-form-row">
                     <label for="content">Your Reply:</label>
