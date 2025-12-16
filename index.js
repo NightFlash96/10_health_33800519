@@ -34,9 +34,9 @@ app.use(expressSanitiser());
 // Define the database connection pool
 const db = mysql.createPool({
     host: process.env.DB_HOST ||'localhost',
-    user: process.env.DB_USER || 'big_boulder_app' ,
+    user: process.env.DB_USER || 'health_app' ,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || 'big_boulder',
+    database: process.env.DB_NAME || 'health',
     waitForConnections: true,
     connectionLimit: Number(process.env.DB_CONNECTION_LIMIT) || 10,
     queueLimit: 0,

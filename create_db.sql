@@ -1,6 +1,6 @@
 # Create the database
-CREATE DATABASE IF NOT EXISTS big_boulder;
-USE big_boulder;
+CREATE DATABASE IF NOT EXISTS health;
+USE health;
 
 # Create the users table
 CREATE TABLE IF NOT EXISTS users (
@@ -43,5 +43,5 @@ CREATE TABLE IF NOT EXISTS audit(
 
 
 # Create the application user
-CREATE USER IF NOT EXISTS 'big_boulder_app'@'localhost' IDENTIFIED BY 'qwertyuiop'; 
-GRANT ALL PRIVILEGES ON big_boulder.* TO 'big_boulder_app'@'localhost';
+CREATE USER IF NOT EXISTS 'health_app'@'localhost' IDENTIFIED BY 'qwertyuiop'; 
+GRANT ALL PRIVILEGES ON health.* TO 'health_app'@'localhost';

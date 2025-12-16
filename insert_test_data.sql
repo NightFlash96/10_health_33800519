@@ -1,7 +1,7 @@
 # Insert test data into the tables
 
 # Select database
-USE big_boulder;
+USE health;
 
 # Insert test users
 INSERT INTO users (id, username, email, password_hash, created) VALUES
