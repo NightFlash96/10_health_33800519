@@ -4,12 +4,37 @@
     <title><%= appName %></title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body class="body">
+  <body class="body site-body">
     <%- include('partials/header') %>
-    <h1>Welcome to <%= appName %></h1>
-    <h2>Here are some things that we sell:</h2>
-    <ul>
-  
-    </ul>
-    </body>
+    <div class="site-panel">
+      <h1 class="site-title">Welcome to <%= appName %></h1>
+      <p class="site-lead">
+        <strong>Big Boulder</strong> is a fitness tracking app designed for bouldering enthusiasts.
+        Log your climbing achievements, track your progress over time, monitor your fitness improvements,
+        and share your passion with a community of fellow climbers in our interactive forum.
+      </p>
+
+      <% if (typeof userID !== 'undefined' && userID) { %>
+        <div class="site-section">
+          <h3 class="site-subtitle">Ready to climb?</h3>
+          <p class="home-actions">
+            <a href="/climbs/add" class="cta-btn">Log a Climb</a>
+            <a href="/climbs/sessions" class="cta-btn">My Sessions</a>
+          </p>
+        </div>
+      <% } else { %>
+        <div class="site-section">
+          <h3 class="site-subtitle">Get started today!</h3>
+          <p class="home-actions">
+            <a href="/login" class="cta-btn">Login</a>
+            <a href="/register" class="cta-btn">Register</a>
+          </p>
+        </div>
+      <% } %>
+
+      <div class="site-separator">
+        <p class="site-forum-link"><a href="/forum">Check out our Forum!</a></p>
+      </div>
+    </div>
+  </body>
 </html>

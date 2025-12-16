@@ -4,30 +4,39 @@
     <title><%=appName%></title> 
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body class="body">
+  <body class="body climb-body">
     <%- include('partials/header') %>
     <div class="page-content">
-      <div class="login-container">
-        <h1> Register for <%= appName %> </h1>
-        <form method="POST" action="/registered">
-            Username: <input id="username" type="text" name="username"/><br><br>
-            Email: <input id="email" type="text" name="email"/><br><br>
-            Password: <input id="password" type="password" name="password"/><br>
-            <small style="color: #666;">(Minimum 8 characters)</small><br><br>
-            <input type="submit" value="OK"/>
-        </form> 
+      <div class="site-login-container">
+        <h1 class="site-title">Register for <%= appName %></h1>
+        <form class="site-form" method="POST" action="/registered">
+          <div class="site-form-row">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" required />
+          </div>
+          <div class="site-form-row">
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email" required />
+          </div>
+          <div class="site-form-row">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required />
+            <small style="color: #f3f4f6; font-size: 0.85em;">(Minimum 8 characters)</small>
+          </div>
+          <button type="submit" class="cta-btn">Register</button>
+        </form>
         <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-          <div class="error-messages">
-            <p style="color: #d32f2f; font-weight: bold; font-size: small;">Error:</p>
-            <ul style="color: #d32f2f; text-align: left; display: inline-block; font-size: small;">
+          <div style="margin-top: 16px;">
+            <p style="color: #ff6b6b; font-weight: bold; font-size: small;">Error:</p>
+            <ul style="color: #ff6b6b; text-align: left; display: inline-block; font-size: small; margin: 8px 0;">
               <% errors.forEach(error => { %>
                 <li><%= error.msg %></li>
               <% }); %>
             </ul>
           </div>
         <% } %>
-        <p>Already have an account? <a href="/login">Login!</a></p>
-        <p><a href="/">Back to home</a></p>
+        <p class="site-forum-link" style="margin-top: 16px;">Already have an account? <a href="/login">Login!</a></p>
+        <p class="site-forum-link"><a href="/">Back to home</a></p>
       </div>
     </div>
 </body>

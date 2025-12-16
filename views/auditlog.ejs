@@ -9,7 +9,7 @@
     <%- include('partials/header') %>
     <h1>Audit Log</h1>
     <% if (Array.isArray(auditlogs) && auditlogs.length) { %>
-        <table class="book-list">
+        <table class="audit-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -20,12 +20,12 @@
                 </tr>
             </thead>
             <tbody>
-            <% auditlogs.forEach(function(log) { console.log(log); %>
+            <% auditlogs.forEach(function(log) { %>
                 <tr>
                     <td><%= log.id %></td>
                     <td><%= log.datetime %></td>
                     <td><%= log.username %></td>
-                    <td><%= log.success[0] == 1 ? 'True' : 'False' %></td>
+                    <td><%= log.success ? 'True' : 'False' %></td>
                     <td><%= log.eventType %></td>
                 </tr>
             <% }); %>

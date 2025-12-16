@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bouldering Forum</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="body climb-body">
+    <%- include('partials/header') %>
+    <div class="site-panel">
+        <h1 class="site-title">Big Boulder Forum</h1>
+        <div style="margin-bottom: 20px;">
+            <a href="/createpost" class="cta-btn">Create Post</a>
+        </div>
+
+        <% if (Array.isArray(climbs) && climbs.length) { %>
+            <%
+            // Build a map of all posts by ID for quick lookup
+            const allPostsMap = {};
+            climbs.forEach(function(post) {
+                post.replies = [];
+                allPostsMap[post.id] = post;
+            });
+            
+            // Build reply tree by associating replies with their parents
+            const parentPosts = [];
+            climbs.forEach(function(post) {
+                if (post.parentpost === null || post.parentpost === undefined) {
+                    // Top-level post
+                    parentPosts.push(post);
+                } else {
+                    // Reply to another post
+                    const parent = allPostsMap[post.parentpost];
+                    if (parent) {
+                        parent.replies.push(post);
+                    }
+                }
+            });
+            
+            // Sort parent posts by creation date (most recent first)
+            parentPosts.sort((a, b) => new Date(b.created) - new Date(a.created));
+            
+            // Recursive function to render a post and its nested replies
+            function renderPost(post, depth = 0) { %>
+                <div class="forum-post <%= depth === 0 ? 'forum-post-parent' : 'forum-post-child' %>" style="margin-left: <%= depth > 0 ? (depth * 12) + 'px' : '0' %>;">
+                    <div class="forum-post-left">
+                        <div class="forum-post-author"><%= post.user_id %></div>
+                        <div class="forum-post-date"><%= new Date(post.created).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) %></div>
+                        <div class="forum-post-time"><%= new Date(post.created).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) %></div>
+                    </div>
+                    <div class="forum-post-right">
+                        <% if (depth === 0) { %>
+                            <h2 class="forum-post-title"><%= post.title %></h2>
+                        <% } %>
+                        <div class="forum-post-content">
+                            <p><%= post.content %></p>
+                        </div>
+                        <div class="forum-post-actions">
+                            <a href="/replypost/<%= post.id %>" class="forum-reply-btn">Reply</a>
+                        </div>
+                    </div>
+                </div>
+                <% if (post.replies && post.replies.length > 0) {
+                    post.replies.forEach(function(reply) {
+                        renderPost(reply, depth + 1);
+                    });
+                } %>
+            <% }
+            %>
+
+            <div class="forum-posts">
+                <% parentPosts.forEach(function(parentPost) { %>
+                    <div class="forum-thread">
+                        <% renderPost(parentPost, 0); %>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p class="site-lead">No forum posts yet. Be the first to start a discussion!</p>
+        <% } %>
+
+        <div class="site-separator">
+            <p class="site-forum-link"><a href="/">Back to home</a></p>
+        </div>
+    </div>
+</body>
+</html>

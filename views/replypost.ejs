@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reply to Post</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="body climb-body">
+    <%- include('partials/header') %>
+    <div class="page-content">
+        <div class="site-login-container">
+            <h1 class="site-title">Reply to:</h1>
+            
+            <% if (parentPost) { %>
+                <div class="forum-post forum-post-parent" style="margin-bottom: 24px;">
+                    <div class="forum-post-header">
+                        <h2 class="forum-post-title"><%= parentPost.title %></h2>
+                        <span class="forum-post-meta">by <%= parentPost.user_id %> on <%= new Date(parentPost.created).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) %> at <%= new Date(parentPost.created).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) %></span>
+                    </div>
+                    <div class="forum-post-content">
+                        <p><%= parentPost.content %></p>
+                    </div>
+                </div>
+            <% } %>
+
+            <form class="site-form" action="/replyposted/<%= parentPost.id %>" method="POST">
+                <input type="hidden" name="parentpost" value="<%= parentPost.id %>">
+                <div class="site-form-row">
+                    <label for="content">Your Reply:</label>
+                    <textarea id="content" name="content" class="expandable-textarea" required></textarea>
+                </div>
+
+                <button type="submit" class="cta-btn">Post Reply</button>
+            </form>
+
+            <p class="site-forum-link" style="margin-top: 16px;"><a href="/forum">Back to forum</a></p>
+        </div>
+    </div>
+    <script>
+        // Auto-expand textarea as user types
+        const textareas = document.querySelectorAll('.expandable-textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+    </script>
+</body>
+</html>

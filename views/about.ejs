@@ -4,14 +4,36 @@
     <title><%= appName %></title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
+  <body class="body site-body">
     <%- include('partials/header') %>
-    <h1>About <%= appName %></h1>
-    <p>We sell all sorts of drinks</p>
+    <div class="site-panel">
+      <h1 class="site-title">About <%= appName %></h1>
+      <p class="site-lead">
+        Big Boulder is a fitness tracking app for bouldering enthusiasts who live for the send. 
+        Track your sessions, log breakthrough problems, monitor your fitness progress, and celebrate 
+        every top-out—whether it's a gritty slab or a dynamic dyno. Connect with a community of fellow climbers
+        in our interactive forum.
+      </p>
 
-    <h2>Our branches:</h2>
-    <ul>
+      <div class="site-section">
+        <h2 class="site-subtitle">What we're about</h2>
+        <ul class="site-list">
+          <li>Simple logging: record climbs with grade, style, and send notes.</li>
+          <li>Progress at a glance: spot trends across sessions and seasons.</li>
+          <li>Community first: swap beta, share triumphs, and learn from others.</li>
+          <li>Forum vibes: join the conversation on training, travel, and gear.</li>
+        </ul>
+      </div>
 
-    </ul>
+      <div class="site-section">
+        <h2 class="site-subtitle">Our (totally real) story</h2>
+        <p class="site-lead">
+          Founded at a chalk-dusted coffee shop after a day of failed top-outs, Big Boulder was dreamed up by
+          climbers who wanted a lightweight, focused place to log sends and trade beta without the noise.
+          Today, it's where weekend warriors and gym rats alike keep their stoke alive between sessions.
+        </p>
+        <p class="site-forum-link" style="margin-top: 16px;"><a href="/">Back to home</a></p>
+      </div>
+    </div>
   </body>
 </html>

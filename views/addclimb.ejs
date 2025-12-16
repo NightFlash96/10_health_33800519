@@ -5,26 +5,26 @@
     <title>Add Climb</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body class="body">
+<body class="body climb-body">
     <%- include('partials/header') %>
     <div class="page-content">
-        <div class="login-container">
-            <h1>Add a Climb</h1>
-            <form action="/climbs/climb_added" method="POST">
-                <div>
-                    <label for="name">Climb Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <br>
-                <div>
-                    <label for="difficulty">Difficulty:</label>
-                    <input type="text" id="difficulty" name="difficulty" required>
-                </div>
-                <br>
-                <button type="submit">Add Climb</button>
-            </form>
+        <div class="site-login-container">
+            <h1 class="site-title">Add a Climb</h1>
+            <form class="site-form" action="/climbs/climb_added" method="POST">
+            <div class="site-form-row">
+                <label for="name">Climb Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-            <p><a href="/">Back to home</a></p>
+            <div class="site-form-row">
+                <label for="difficulty">Difficulty</label>
+                <input type="text" id="difficulty" name="difficulty" required>
+            </div>
+
+            <button type="submit" class="cta-btn">Add Climb</button>
+        </form>
+
+            <p class="site-forum-link" style="margin-top: 16px;"><a href="/">Back to home</a></p>
         </div>
     </div>
 </body>
