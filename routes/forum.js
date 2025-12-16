@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { redirectLogin } = require('../middleware/redirectlogin.js');
 
+const basePath = process.env.HEALTH_BASE_PATH || '/';
+
 // Forum route - get all posts
 router.get('/', (req, res, next) => {
     let sqlquery = "SELECT * FROM posts";
@@ -34,7 +36,7 @@ router.post('/posted', redirectLogin, (req, res, next) => {
             next(err);
         } else {
             console.log('Post added to database.');
-            res.redirect('/forum');
+            res.redirect(`${basePath}forum`);
         }
     });
 });
@@ -78,7 +80,7 @@ router.post('/replyposted/:id', redirectLogin, (req, res, next) => {
                 return next(err2);
             }
             console.log('Reply post added to database.');
-            return res.redirect('/forum');
+            return res.redirect(`${basePath}forum`);
         });
     });
 });
