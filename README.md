@@ -47,7 +47,7 @@ A web-based fitness tracking application designed for bouldering enthusiasts. Tr
 **Database:**
 - **MySQL 8.0+**
 
-## 📋 Database Schema
+## Database Schema
 
 ### Users Table
 ```sql
@@ -121,12 +121,16 @@ A web-based fitness tracking application designed for bouldering enthusiasts. Tr
    Create a `.env` file in the root directory:
    ```
    PORT=8000
+   HEALTH_BASE_PATH=/
    HEALTH_HOST=localhost
    HEALTH_USER=health_app
    HEALTH_PASSWORD=qwertyuiop
    HEALTH_DATABASE=health
+   HEALTH_PORT=3306
    HEALTH_CONNECTION_LIMIT=10
    ```
+   
+   **Note**: `HEALTH_BASE_PATH` should be `/` for local development. On production (e.g., Ubuntu VM), set it to your subdirectory path (e.g., `/health_33800519/`).
 
 6. **Start the server**
    ```bash
@@ -149,10 +153,11 @@ A web-based fitness tracking application designed for bouldering enthusiasts. Tr
 ├── insert_test_data.sql     # Sample data
 ├── .env                     # Environment configuration (create this)
 ├── middleware/
-│   └── redirectlogin.js     # Login redirect middleware
+│   └── redirectlogin.js     # Login redirect middleware (uses HEALTH_BASE_PATH)
 ├── routes/
 │   ├── main.js              # Authentication and core routes
-│   └── climbs.js            # Climbing session routes
+│   ├── climbs.js            # Climbing session routes
+│   └── forum.js             # Forum/community discussion routes
 ├── views/
 │   ├── index.ejs            # Home page
 │   ├── about.ejs            # About page
@@ -175,6 +180,25 @@ A web-based fitness tracking application designed for bouldering enthusiasts. Tr
 │       └── climb.jpeg       # Climb-related pages background
 └── docs/                    # Documentation folder
 ```
+
+## Code Organization
+
+### Modular Router Architecture
+The application uses Express modular routers for clean separation of concerns:
+
+- **`routes/main.js`** - Authentication, home, about, and audit routes
+- **`routes/climbs.js`** - Climbing session tracking routes  
+- **`routes/forum.js`** - Forum discussion routes
+
+Each router is mounted in `index.js` at its respective path:
+```javascript
+app.use('/', mainRoutes);
+app.use('/climbs', climbRoutes);
+app.use('/forum', forumRoutes);
+```
+
+### Path-Relative Redirects
+The `redirectLogin` middleware uses `HEALTH_BASE_PATH` from `.env` to construct relative redirect URLs, allowing the app to work in any subdirectory without hardcoded paths.
 
 ## Security Features
 
@@ -213,12 +237,12 @@ The application features a modern, responsive design with:
 - `GET /climbs/sessions` - View user's climbing sessions
 - `GET /climbs/add` - Add climb form
 - `POST /climbs/climb_added` - Process new climb entry
-
-### Forum Routes
-- `GET /forum` - View all forum posts (threaded)
-- `GET /createpost` - Create post form (requires login)
-- `POST /posted` - Process new forum post (requires login)
-- `GET /replypost/:id` - Reply to post form (requires login)
+ (modular router mounted at `/forum`)
+- `GET /forum` - View all forum posts (threaded display)
+- `GET /forum/createpost` - Create post form (requires login)
+- `POST /forum/posted` - Process new forum post (requires login)
+- `GET /forum/replypost/:id` - Reply to post form (requires login)
+- `POST /forumreplypost/:id` - Reply to post form (requires login)
 - `POST /replyposted/:id` - Process post reply (requires login)
 
 ### Admin Routes (requires login)
@@ -226,10 +250,17 @@ The application features a modern, responsive design with:
 
 ## Troubleshooting
 
-### Images not displaying
-- Ensure images are in `public/images/` directory
-- Check that CSS uses relative paths: `url('./images/filename.jpeg')`
-- Verify static file serving is configured: `app.use(express.static(path.join(__dirname, 'public')))`
+### Images not displaying and base path:
+   ```
+   HEALTH_BASE_PATH=/health_33800519/
+   HEALTH_HOST=prod-db-server
+   HEALTH_USER=production_user
+   HEALTH_PASSWORD=production_password
+   HEALTH_DATABASE=production_db
+   ```
+2. Ensure MySQL user and database are created
+3. Update session secret for security
+4. Use relative paths for static assets (CSS uses `./images/` notexpress.static(path.join(__dirname, 'public')))`
 
 ### Database connection errors
 - Verify MySQL is running
@@ -267,4 +298,4 @@ NightFlash96
 
 ---
 
-**Happy Climbing!** 🧗‍♂️
+**Happy Climbing!** 
