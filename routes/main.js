@@ -46,7 +46,7 @@ router.post('/loggedin', function(req, res, next) {
                     next(err);
                 } else if (result == true) { // it match, log successful attempt
                     req.session.userID = username; // create session variable
-                    res.redirect('/');
+                    res.redirect('./');
                     db.query("INSERT INTO audit (username, datetime, success, eventType) VALUES (?, NOW(), 1, 'login')", [username], (err, result) => {
                         if (err) {
                             next(err)
