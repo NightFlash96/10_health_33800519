@@ -85,8 +85,8 @@ a:hover{ text-decoration:underline }
   background-position:top;
   background-attachment:fixed;
 }
-.site-body{ background-image:url('/images/home2.jpeg'); }
-.climb-body{ background-image:url('/images/climb.jpeg'); }
+.site-body{ background-image:url('./images/home2.jpeg'); }
+.climb-body{ background-image:url('./images/climb.jpeg'); }
 
 /* Content panels */
 .site-panel, .site-login-container{
