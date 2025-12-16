@@ -1,6 +1,6 @@
 home=https://www.doc.gold.ac.uk/usr/149/
 about=https://www.doc.gold.ac.uk/usr/149/about
-search=home=https://www.doc.gold.ac.uk/usr/149/search
-add_climb=https://www.doc.gold.ac.uk/usr/149/addclimb
+add_climb=https://www.doc.gold.ac.uk/usr/149/climbs/add
+sessions=https://www.doc.gold.ac.uk/usr/149/climbs/sessions
 forum=https://www.doc.gold.ac.uk/usr/149/forum
-shop=https://www.doc.gold.ac.uk/usr/149/shop
+create_post=https://www.doc.gold.ac.uk/usr/149/forum/createpost
