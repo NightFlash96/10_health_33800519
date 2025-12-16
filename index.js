@@ -63,5 +63,9 @@ app.use('/', mainRoutes);
 const climbRoutes = require('./routes/climbs');
 app.use('/climbs', climbRoutes);
 
+// Load routes for forum
+const forumRoutes = require('./routes/forum');
+app.use('/forum', forumRoutes);
+
 // Start the web app listening
 app.listen(port, () => console.log(`App listening on port ${port}`));
