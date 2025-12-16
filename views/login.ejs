@@ -20,6 +20,16 @@
           </div>
           <button type="submit" class="cta-btn">Login</button>
         </form>
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+          <div style="margin-top: 16px;">
+            <p style="color: #ff6b6b; font-weight: bold; font-size: small;">Error:</p>
+            <ul style="color: #ff6b6b; text-align: left; display: inline-block; font-size: small; margin: 8px 0;">
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
         <p class="site-forum-link" style="margin-top: 16px;">Don't have an account? <a href="/register">Register!</a></p>
         <p class="site-forum-link"><a href="/">Back to home</a></p>
       </div>

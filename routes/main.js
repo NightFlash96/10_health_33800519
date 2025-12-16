@@ -30,7 +30,7 @@ router.post('/loggedin', function(req, res, next) {
         if (err) {
             next(err);
         } else if (result.length === 0){ // if the username or email does not exist, send error message and log failed attempt
-            res.send('Username or email not found.');
+            res.render('login.ejs', { errors: [{ msg: 'Username or email not found.' }] });
             console.log(result);
             db.query("INSERT INTO audit (username, datetime, success, eventType) VALUES (?, NOW(), 0, 'incorrect username/email')", [username], (err, result) => {
                 if (err) {
@@ -57,7 +57,7 @@ router.post('/loggedin', function(req, res, next) {
                         }
                     });
                 } else { // if the password does not match, log failed attempt
-                    res.send('Login failed, incorrect password.')
+                    res.render('login.ejs', { errors: [{ msg: 'Login failed, incorrect password.' }] });
                     db.query("INSERT INTO audit (username, datetime, success, eventType) VALUES (?, NOW(), 0, 'incorrect password')", [username], (err, result) => {
                         if (err) {
                             next(err)
