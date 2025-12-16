@@ -10,7 +10,7 @@
     <div class="site-panel">
         <h1 class="site-title">Big Boulder Forum</h1>
         <div style="margin-bottom: 20px;">
-            <a href="/createpost" class="cta-btn">Create Post</a>
+            <a href="/forum/createpost" class="cta-btn">Create Post</a>
         </div>
 
         <% if (Array.isArray(climbs) && climbs.length) { %>
@@ -56,7 +56,7 @@
                             <p><%= post.content %></p>
                         </div>
                         <div class="forum-post-actions">
-                            <a href="/replypost/<%= post.id %>" class="forum-reply-btn">Reply</a>
+                            <a href="/forum/replypost/<%= post.id %>" class="forum-reply-btn">Reply</a>
                         </div>
                     </div>
                 </div>
