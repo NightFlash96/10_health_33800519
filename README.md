@@ -289,7 +289,7 @@ ISC License - See package.json for details
 
 ## 👤 Author
 
-NightFlash96
+Maksymilian Zarzycki 33800519
 
 ## 🔗 Links
 
