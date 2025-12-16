@@ -151,7 +151,7 @@ router.post('/posted', redirectLogin, (req, res, next) => {
             next(err);
         } else {
             console.log('Post added to database.');
-            res.redirect('/forum');
+            res.redirect('./forum');
         }
     });
 });
@@ -194,7 +194,7 @@ router.post('/replyposted/:id', redirectLogin, (req, res, next) => {
                 return next(err2);
             }
             console.log('Reply post added to database.');
-            return res.redirect('/forum');
+            return res.redirect('./forum');
         });
     });
 });
